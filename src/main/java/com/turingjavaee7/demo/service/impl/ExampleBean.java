@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExampleBean {
 
-	ExampleBean(){
+	public ExampleBean(){
 		log.info("Example Bean created");
 	}
 	public void api() {
