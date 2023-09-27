@@ -46,6 +46,13 @@ public class HomeController {
 	@GetMapping("/")
 	String home() {
 		
+		try {
+			log.info("Handleby thread " + Thread.currentThread().getName());
+			Thread.sleep(2000);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		PrototypeService service = new PrototypeDemo().getPrototype();
 		log.info("Service " + service);
 		log.info("Home controller / " + this.a);
@@ -69,5 +76,19 @@ public class HomeController {
 		model.addAttribute("currentMessage", requestScopedBean.getMessage());
 		
 		return "scopesExample";
+	}
+	
+	@Resource(name = "appScopedBean")
+	HelloMessageGenerator appScopedBean;
+	
+	@GetMapping("/scopes/application")
+	public String getApplicationScopeMessage(final Model model) {
+		
+		log.info("HelloMessage Generator: appScopedBean", this);
+		model.addAttribute("previousMessage", appScopedBean.getMessage());
+		requestScopedBean.setMessage("Good afternoon!");
+		model.addAttribute("currentMessage", appScopedBean.getMessage());
+		
+		return "appScopedBean";
 	}
 }
