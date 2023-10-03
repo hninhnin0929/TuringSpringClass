@@ -7,6 +7,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.turingjavaee7.demo.model.ShoppingCart;
+import com.turingjavaee7.demo.model.Store;
 import com.turingjavaee7.demo.service.impl.ExampleBean;
 import com.turingjavaee7.demo.service.impl.HelloMessageGenerator;
 
@@ -44,4 +45,15 @@ public class AppConfig {
 		return new ShoppingCart();
 	}
 	
+	@Bean
+	public Store<String> stringStore() {
+		log.info("String store created");
+		return new Store<String>();
+	}
+	
+	@Bean
+	public Store<Integer> integerStore() {
+		log.info("Integer Store created");
+		return new Store<Integer>();
+	}
 }

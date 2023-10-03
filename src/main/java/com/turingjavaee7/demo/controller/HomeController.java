@@ -2,11 +2,13 @@ package com.turingjavaee7.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.turingjavaee7.demo.model.Store;
 import com.turingjavaee7.demo.service.ArithmeticService;
 import com.turingjavaee7.demo.service.PrototypeService;
 import com.turingjavaee7.demo.service.impl.HelloMessageGenerator;
@@ -21,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class HomeController {
+	
+	@Value("${catalog.name}") String catalog;
 
 	int a;
 	
@@ -39,6 +43,9 @@ public class HomeController {
 	public HomeController() {
 		log.info("Home Controller created ");
 	}
+	
+	@Autowired
+	Store<Integer> integerStore;
 	
 	@Autowired
 	PrototypeService prototypeService;
