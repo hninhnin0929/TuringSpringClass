@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.turingjavaee7.demo.model.Store;
 import com.turingjavaee7.demo.service.ArithmeticService;
@@ -72,6 +73,13 @@ public class HomeController {
 			
 		}
 		return "home";
+	}
+	
+	@GetMapping("/search")
+	public String search(@RequestParam String query) {
+		
+		log.info("Query " + query);
+		return "scopesExample";
 	}
 	
 	@GetMapping("/scopes/request")
