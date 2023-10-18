@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.turingjavaee7.demo.model.Book;
 import com.turingjavaee7.demo.service.BookService;
@@ -18,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@SessionAttributes("cart")
 @RequestMapping("/books")
 public class BookController {
 
@@ -67,9 +71,25 @@ public class BookController {
 	}
 	
 	@GetMapping("/cart")
-	String cardForm(@PathVariable String id) 
+	String cardForm(Model model) 
 	{
-		log.info("Add book id=" + id + " to cart");
+		log.info("Cart form");
+		List<String> cart = new ArrayList<String>();
+		model.addAttribute("cart", cart);
+		
+		return "/books/cart";
+	}
+	
+	@PostMapping("/cart")
+	String cartFormSubmit(Model model, 
+			@ModelAttribute("cart") ArrayList<String> cart,
+			@RequestParam String bookId) {
+		
+		log.info("Cart form submit bookId "+bookId);
+		cart.add(bookId);
+//		List<String> cart = new ArrayList<String>();
+//		model.addAttribute("cart", cart);
+		log.info("Cart Item " + cart.size());
 		return "/books/cart";
 	}
 }
