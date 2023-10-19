@@ -22,17 +22,25 @@ public class BookDaoImpl implements BookDao {
 	
 	@Override
 	public List<Book> getAllBooks() {
-		// TODO Auto-generated method stub
+		
 		return this.books;
 	}
 
 	@Override
 	public Book getBookById(String id) {
-		// TODO Auto-generated method stub
+		
 		return this.books.stream().
 				filter(book->book.getId().equals(id))
 				.collect(Collectors.toList())
 				.get(0);
+	}
+
+
+	@Override
+	public void saveBook(Book book) {
+		
+		this.books.add(book);
+		
 	}
 
 }

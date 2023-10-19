@@ -17,14 +17,20 @@ public class BookServiceImpl implements BookService{
 	
 	@Override
 	public List<Book> getAllBook() {
-		// TODO Auto-generated method stub
+		
 		return this.bookDao.getAllBooks();
 	}
 
 	@Override
 	public Book getBookById(String id) {
-		// TODO Auto-generated method stub
+		
 		return this.bookDao.getBookById(id);
+	}
+
+	@Override
+	public void saveBook(Book book) {
+		
+		this.bookDao.saveBook(book);
 	}
 
 }

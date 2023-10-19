@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.turingjavaee7.demo.model.Book;
 import com.turingjavaee7.demo.service.BookService;
+import com.turingjavaee7.demo.validation.BookValidator;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -28,6 +32,12 @@ public class BookController {
 
 	@Autowired
 	BookService bookService;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		//binder.setDisallowedField("id");
+		binder.setValidator(new BookValidator());
+	}
 	
 	@ModelAttribute
 	void addEmptyBook(Model model) {
@@ -56,10 +66,20 @@ public class BookController {
 	}
 	
 	@PostMapping("/new")
-	String createBook(@ModelAttribute Book book, BindingResult result) {
+	String createBook(@Valid @ModelAttribute Book book, BindingResult result) {
 		
 		log.info("Create book " + book);
-		return "/books/newBook";
+		if(result.hasErrors()) 
+		{
+			log.info("Book has error ");
+			return "/books/newBook";
+		}
+		else 
+		{
+			this.bookService.saveBook(book);
+			return "redirect:/books/new";
+		}
+		
 	}
 	
 	@GetMapping
