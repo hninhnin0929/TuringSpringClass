@@ -25,6 +25,13 @@ public class BookValidator implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "author", "required", new Object[] {"author"});
 		ValidationUtils.rejectIfEmpty(errors, "title", "required", new Object[] {"title"});
 		
+		Book book = (Book) target;
+		if(!book.getTitle().isEmpty()) {
+			String firstChar = book.getTitle().charAt(0)+"";
+			if(!firstChar.toUpperCase().equals(firstChar)) {
+				errors.rejectValue("title", "uppercase");
+			}
+		}
 	}
 
 }

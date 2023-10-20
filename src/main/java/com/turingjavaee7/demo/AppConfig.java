@@ -2,8 +2,10 @@ package com.turingjavaee7.demo;
 
 import java.util.Locale;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
@@ -67,5 +69,17 @@ public class AppConfig implements WebMvcConfigurer{
 		SessionLocaleResolver slr = new SessionLocaleResolver();
 		slr.setDefaultLocale(Locale.US);
 		return slr;
+	}
+	
+	@Bean
+	public MessageSource messageSource() {
+		
+		ReloadableResourceBundleMessageSource messageSource 
+		= new ReloadableResourceBundleMessageSource();
+		
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		
+		return messageSource;
 	}
 }
