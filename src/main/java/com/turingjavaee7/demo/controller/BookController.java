@@ -81,6 +81,14 @@ public class BookController {
 		}
 		
 	}
+	@GetMapping("/edit/{id}")
+	String bookEditForm(Model model, @PathVariable String id) {
+		
+		log.info("Edit book" +id);
+		Book book = this.bookService.getBookById(id);
+		model.addAttribute("book", book);
+		return "/books/newBook";
+	}
 	
 	@GetMapping
 	String getAllBook(Model model) {
