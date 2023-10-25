@@ -43,4 +43,24 @@ public class BookDaoImpl implements BookDao {
 		
 	}
 
+
+	@Override
+	public void updateBook(Book book) {
+	
+		Book originalBook = this.getBookById(book.getId());
+		originalBook.setAuthor(book.getAuthor());
+		originalBook.setTitle(book.getTitle());
+		
+	}
+
+
+	@Override
+	public void deleteBookById(String id) {
+		
+		List<Book> books = this.books.stream()
+				.filter(book->!book.getId().equals(id))
+				.collect(Collectors.toList());	
+		this.books = books;
+	}
+
 }

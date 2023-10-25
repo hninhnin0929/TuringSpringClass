@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Book {
 
-	@NotBlank(message = "{required.book.title}")
+	@NotBlank(message = "{required.book.id}")
 	String id;
 	
-	@NotBlank(message = "title is required")
-	@Size(min = 3, max = 100, message="Title must be between 3 and 100 characters")
+	@NotBlank(message = "required.book.title")
+	@Size(min = 3, max = 100, message="size.book.title")
 	String title;
 	
-	@NotBlank(message = "author is mandatory")
+	@NotBlank(message = "required.book.author")
 	String author;
 }
